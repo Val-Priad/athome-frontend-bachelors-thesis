@@ -1,0 +1,39 @@
+@import "tailwindcss";
+@import "./button.css";
+@import "./input.css";
+
+@theme inline {
+  --font-sans: var(--font-inter), sans-serif;
+  --color-background: hsl(0, 0%, 99%);
+  --color-foreground: hsl(0, 0%, 5%);
+
+  --color-card: hsl(0, 0%, 95%);
+  --color-card-foreground: hsl(0, 0%, 5%);
+
+  --color-primary: hsl(12, 75%, 45%);
+  --color-primary-muted: hsl(12, 75%, 40%);
+  --color-primary-foreground: hsl(0, 0%, 99%);
+
+  --color-secondary: hsl(328, 47%, 43%);
+  --color-secondary-muted: hsl(328, 47%, 38%);
+  --color-secondary-foreground: hsl(0, 0%, 99%);
+
+  --color-muted: hsl(0, 0%, 92%);
+  --color-muted-foreground: hsl(0, 0%, 40%);
+
+  --color-border: hsl(0, 0%, 85%);
+  --color-input: hsl(0, 0%, 85%);
+  --color-ring: hsl(12, 75%, 45%);
+
+  --color-success: hsl(142, 76%, 36%);
+  --color-success-muted: hsl(142, 76%, 31%);
+
+  --color-warning: hsl(38, 92%, 50%);
+  --color-warning-muted: hsl(38, 92%, 45%);
+
+  --color-danger: hsl(348, 60%, 47%);
+  --color-danger-muted: hsl(348, 60%, 42%);
+
+  --color-info: hsl(214, 100%, 50%);
+  --color-info-muted: hsl(214, 100%, 45%);
+}

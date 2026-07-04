@@ -1,0 +1,38 @@
+import { ValidationFieldError } from "./types";
+
+export type FieldErrors<TField extends string> = Partial<
+  Record<TField, string[]>
+>;
+
+export function validationErrorsToFieldErrors<TField extends string>(
+  errors: ValidationFieldError[],
+): FieldErrors<TField> {
+  return errors.reduce<FieldErrors<TField>>((acc, error) => {
+    const field = error.field as TField;
+
+    acc[field] = [...(acc[field] ?? []), error.message];
+
+    return acc;
+  }, {});
+}
+
+export function getFieldErrors<TField extends string>(
+  fieldErrors: FieldErrors<TField>,
+  field: TField,
+): string[] {
+  return fieldErrors[field] ?? [];
+}
+
+export function getFirstFieldError<TField extends string>(
+  fieldErrors: FieldErrors<TField>,
+  field: TField,
+): string | undefined {
+  return fieldErrors[field]?.[0];
+}
+
+export function hasFieldError<TField extends string>(
+  fieldErrors: FieldErrors<TField>,
+  field: TField,
+): boolean {
+  return Boolean(fieldErrors[field]?.length);
+}

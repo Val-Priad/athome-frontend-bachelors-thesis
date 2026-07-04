@@ -1,0 +1,3 @@
+.primary-btn {
+  @apply bg-primary text-primary-foreground hover:bg-primary-muted rounded-md text-sm font-medium;
+}
