@@ -2,20 +2,25 @@
 
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { FaRegEyeSlash } from "react-icons/fa";
-import { FaRegEye } from "react-icons/fa";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { useTranslations } from "next-intl";
+
 import ApiError from "@/shared/api/apiError";
 import {
   FieldErrors,
   getFirstFieldError,
   validationErrorsToFieldErrors,
 } from "@/shared/api/validation";
+
 import { RegisterPayload, registerUser } from "../api";
-import onBlurTrim from "@/shared/ui/onBlurTrim";
+import { formatValidationError } from "@/shared/api/validationI18n";
 
 type RegisterField = keyof RegisterPayload;
 
 export default function RegisterForm() {
+  const t = useTranslations("Auth.Register");
+  const tValidation = useTranslations("Validation");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -45,21 +50,25 @@ export default function RegisterForm() {
           password,
         }),
         {
-          loading: "Creating account...",
-          success: "Check your email for further instructions.",
+          loading: t("submitting"),
+          success: t("success"),
           error: (error) => {
             if (error instanceof ApiError) {
               return error.message;
             }
 
-            return "Could not create account.";
+            return t("fallbackError");
           },
         },
       );
     } catch (error) {
       if (error instanceof ApiError && error.isValidationError) {
         setFieldErrors(
-          validationErrorsToFieldErrors<RegisterField>(error.validationErrors),
+          validationErrorsToFieldErrors<RegisterField>(
+            error.validationErrors,
+            (validationError) =>
+              formatValidationError(validationError, tValidation),
+          ),
         );
       }
     } finally {
@@ -74,7 +83,7 @@ export default function RegisterForm() {
       <form onSubmit={handleSubmit} className="space-y-3">
         <div className="space-y-2">
           <label htmlFor="email" className="inline-block text-sm font-medium">
-            Email
+            {t("emailLabel")}
           </label>
 
           <input
@@ -82,11 +91,11 @@ export default function RegisterForm() {
             name="email"
             type="email"
             value={email}
+            minLength={1}
+            maxLength={255}
             required
-            // minLength={1}
-            // maxLength={255}
             className="input-field"
-            placeholder="you@example.com"
+            placeholder={t("emailPlaceholder")}
             aria-invalid={Boolean(emailError)}
             aria-describedby={emailError ? "email-error" : undefined}
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -96,7 +105,7 @@ export default function RegisterForm() {
                 email: undefined,
               }));
             }}
-            onBlur={onBlurTrim}
+            onBlur={(e) => setEmail(e.target.value.trim())}
           />
 
           {emailError && (
@@ -111,18 +120,23 @@ export default function RegisterForm() {
             htmlFor="password"
             className="inline-block text-sm font-medium"
           >
-            Password
+            {t("passwordLabel")}
           </label>
+
           <div className="input-field flex items-center justify-between gap-2">
             <input
               id="password"
               name="password"
               type={isHidden ? "password" : "text"}
               value={password}
+              minLength={8}
+              maxLength={255}
               required
-              // minLength={8}
-              // maxLength={255}
-              placeholder={isHidden ? "********" : "FlAm_able"}
+              placeholder={
+                isHidden
+                  ? t("passwordPlaceholderHidden")
+                  : t("passwordPlaceholderVisible")
+              }
               className="w-full bg-transparent outline-none"
               autoComplete="new-password"
               aria-invalid={Boolean(passwordError)}
@@ -136,12 +150,13 @@ export default function RegisterForm() {
                   password: undefined,
                 }));
               }}
+              onBlur={(e) => setPassword(e.target.value.trim())}
             />
 
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              aria-label={isHidden ? "Show password" : "Hide password"}
+              aria-label={isHidden ? t("showPassword") : t("hidePassword")}
               className="text-muted-foreground hover:text-foreground"
             >
               {isHidden ? <FaRegEye /> : <FaRegEyeSlash />}
@@ -155,7 +170,7 @@ export default function RegisterForm() {
           )}
 
           <p id="password-hint" className="text-muted-foreground text-sm">
-            Password must be at least 8 characters and must not contain spaces.
+            {t("passwordHint")}
           </p>
         </div>
 
@@ -164,7 +179,7 @@ export default function RegisterForm() {
           disabled={isLoading}
           className="primary-btn w-full px-3 py-2 disabled:cursor-not-allowed disabled:opacity-70"
         >
-          {isLoading ? "Creating account..." : "Create account"}
+          {isLoading ? t("submitting") : t("submit")}
         </button>
       </form>
     </>

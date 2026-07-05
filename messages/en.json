@@ -1,5 +1,36 @@
 {
   "HomePage": {
-    "title": "Hello world!"
+    "title": "Hello world"
+  },
+  "Auth": {
+    "Register": {
+      "title": "Register",
+      "description": "Sign up to continue to AtHome.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholderHidden": "********",
+      "passwordPlaceholderVisible": "FlAm_able",
+      "passwordHint": "Password must be at least 8 characters and must not contain spaces.",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "submit": "Create account",
+      "submitting": "Creating account...",
+      "success": "Check your email for further instructions.",
+      "fallbackError": "Could not create account."
+    }
+  },
+  "Validation": {
+    "fields": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "errors": {
+      "missing": "{field} is required.",
+      "string_too_short": "{field} must be at least {min_length} characters long.",
+      "string_too_long": "{field} must be at most {max_length} characters long.",
+      "value_error": "{message}",
+      "default": "{message}"
+    }
   }
 }

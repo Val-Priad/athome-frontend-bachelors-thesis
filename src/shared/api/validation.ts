@@ -4,13 +4,16 @@ export type FieldErrors<TField extends string> = Partial<
   Record<TField, string[]>
 >;
 
+type ValidationErrorFormatter = (error: ValidationFieldError) => string;
+
 export function validationErrorsToFieldErrors<TField extends string>(
   errors: ValidationFieldError[],
+  formatError: ValidationErrorFormatter = (error) => error.message,
 ): FieldErrors<TField> {
   return errors.reduce<FieldErrors<TField>>((acc, error) => {
     const field = error.field as TField;
 
-    acc[field] = [...(acc[field] ?? []), error.message];
+    acc[field] = [...(acc[field] ?? []), formatError(error)];
 
     return acc;
   }, {});
