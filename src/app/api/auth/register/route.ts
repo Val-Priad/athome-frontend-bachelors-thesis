@@ -1,25 +1,13 @@
-import { NextResponse } from "next/server";
-import { getBackendUrl } from "@/shared/api/backend";
+import { proxyBackendRequest } from "@/shared/api/proxy";
 
 export async function POST(request: Request) {
-  try {
-    const body = await request.json();
+  const body = await request.text();
 
-    const response = await fetch(`${getBackendUrl()}/api/auth/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-
-    const data = await response.json().catch(() => null);
-
-    return NextResponse.json(data, { status: response.status });
-  } catch {
-    return NextResponse.json(
-      { message: "Something went wrong" },
-      { status: 500 },
-    );
-  }
+  return proxyBackendRequest(request, "/api/auth/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body,
+  });
 }

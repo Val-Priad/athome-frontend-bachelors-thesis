@@ -1,19 +1,18 @@
 "use client";
 
 import { ChangeEvent, SyntheticEvent, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 
-import ApiError from "@/shared/api/apiError";
-import {
-  FieldErrors,
-  getFirstFieldError,
-  validationErrorsToFieldErrors,
-} from "@/shared/api/validation";
+import { FieldErrors, getFirstFieldError } from "@/shared/api/validation";
 
 import { RegisterPayload, registerUser } from "../api";
 import { formatValidationError } from "@/shared/api/validationI18n";
+import {
+  getApiErrorMessage,
+  getValidationFieldErrors,
+} from "@/shared/api/errors";
 
 type RegisterField = keyof RegisterPayload;
 
@@ -52,24 +51,18 @@ export default function RegisterForm() {
         {
           loading: t("submitting"),
           success: t("success"),
-          error: (error) => {
-            if (error instanceof ApiError) {
-              return error.message;
-            }
-
-            return t("fallbackError");
-          },
+          error: (error) => getApiErrorMessage(error, t("fallbackMessage")),
         },
       );
     } catch (error) {
-      if (error instanceof ApiError && error.isValidationError) {
-        setFieldErrors(
-          validationErrorsToFieldErrors<RegisterField>(
-            error.validationErrors,
-            (validationError) =>
-              formatValidationError(validationError, tValidation),
-          ),
-        );
+      const nextFieldErrors = getValidationFieldErrors<RegisterField>(
+        error,
+        (validationError) =>
+          formatValidationError(validationError, tValidation),
+      );
+
+      if (nextFieldErrors) {
+        setFieldErrors(nextFieldErrors);
       }
     } finally {
       setIsLoading(false);
@@ -78,8 +71,6 @@ export default function RegisterForm() {
 
   return (
     <>
-      <Toaster position="top-center" reverseOrder={false} />
-
       <form onSubmit={handleSubmit} className="space-y-3">
         <div className="space-y-2">
           <label htmlFor="email" className="inline-block text-sm font-medium">

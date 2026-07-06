@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import "../css/global.css";
-import { NextIntlClientProvider } from "next-intl";
+import Providers from "@/shared/ui/Providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="bg-background text-foreground">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

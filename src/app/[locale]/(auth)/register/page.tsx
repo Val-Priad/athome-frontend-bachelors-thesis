@@ -1,4 +1,5 @@
-import RegisterPageContent from "@/features/auth/components/RegisterPageContent";
+import RegisterPageContent from "@/features/auth/register/components/RegisterPageContent";
+
 export default function RegisterPage() {
   return <RegisterPageContent />;
 }
