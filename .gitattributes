@@ -1,0 +1,29 @@
+# Default: let Git detect text files and normalize them
+* text=auto
+
+# TypeScript / React
+*.ts  text eol=lf
+*.tsx text eol=lf
+
+# JavaScript / config modules
+*.js  text eol=lf
+*.jsx text eol=lf
+*.mjs text eol=lf
+*.cjs text eol=lf
+
+# Styles
+*.css text eol=lf
+
+# JSON / configs / translations
+*.json text eol=lf
+
+# Documentation
+*.md text eol=lf diff=markdown
+
+# Root dotfiles
+.gitignore     text eol=lf
+.gitattributes text eol=lf
+
+# Images / assets
+*.png binary
+*.svg text eol=lf
