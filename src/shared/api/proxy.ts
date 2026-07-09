@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getBackendUrl } from "./backend";
 
-async function readJsonSafely(response: Response): Promise<unknown> {
+export async function readJsonSafely(response: Response): Promise<unknown> {
   return response.json().catch(() => null);
 }
 

@@ -18,6 +18,15 @@
       "submitting": "Створюємо акаунт...",
       "success": "Перевірте email для подальших інструкцій.",
       "fallbackError": "Не вдалося створити акаунт."
+    },
+    "VerifyEmailPage": {
+      "title": "Підтвердження email",
+      "loadingMessage": "Підтверджуємо вашу email-адресу...",
+      "missingTokenMessage": "Токен підтвердження відсутній.",
+      "successMessage": "Email успішно підтверджено.",
+      "fallbackErrorMessage": "Не вдалося підтвердити email.",
+      "goToLogin": "Перейти до входу",
+      "goToRegister": "Перейти до реєстрації"
     }
   },
   "Validation": {

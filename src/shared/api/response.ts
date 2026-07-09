@@ -1,9 +1,6 @@
 import ApiError from "./apiError";
 import isApiErrorResponse from "./guards";
-
-async function readJsonSafely(response: Response): Promise<unknown> {
-  return response.json().catch(() => null);
-}
+import { readJsonSafely } from "./proxy";
 
 export async function handleApiResponse<T>(response: Response): Promise<T> {
   const data = await readJsonSafely(response);

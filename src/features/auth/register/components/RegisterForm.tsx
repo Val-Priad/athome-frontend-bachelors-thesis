@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 
 import { FieldErrors, getFirstFieldError } from "@/shared/api/validation";
 
-import { RegisterPayload, registerUser } from "../api";
+import { RegisterPayload, registerUser, resendVerificationEmail } from "../api";
 import { formatValidationError } from "@/shared/api/validationI18n";
 import {
   getApiErrorMessage,
@@ -24,6 +24,7 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isResending, setIsResending] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors<RegisterField>>(
     {},
   );
@@ -66,6 +67,51 @@ export default function RegisterForm() {
       }
     } finally {
       setIsLoading(false);
+    }
+  }
+
+  async function handleResendVerificationEmail() {
+    const trimmedEmail = email.trim();
+
+    if (!trimmedEmail) {
+      toast.error(t("emailRequiredForResend"));
+      return;
+    }
+
+    setEmail(trimmedEmail);
+    setIsResending(true);
+    setFieldErrors((current) => ({
+      ...current,
+      email: undefined,
+    }));
+
+    try {
+      await toast.promise(
+        resendVerificationEmail({
+          email: trimmedEmail,
+        }),
+        {
+          loading: t("resending"),
+          success: t("resendSuccess"),
+          error: (error) =>
+            getApiErrorMessage(error, t("resendFallbackMessage")),
+        },
+      );
+    } catch (error) {
+      const nextFieldErrors = getValidationFieldErrors<RegisterField>(
+        error,
+        (validationError) =>
+          formatValidationError(validationError, tValidation),
+      );
+
+      if (nextFieldErrors) {
+        setFieldErrors((current) => ({
+          ...current,
+          ...nextFieldErrors,
+        }));
+      }
+    } finally {
+      setIsResending(false);
     }
   }
 
@@ -173,6 +219,20 @@ export default function RegisterForm() {
           {isLoading ? t("submitting") : t("submit")}
         </button>
       </form>
+      <div className="border-border mt-4 border-t pt-4 text-center">
+        <p className="text-muted-foreground mb-3 text-sm">
+          {t("resendDescription")}
+        </p>
+
+        <button
+          type="button"
+          onClick={handleResendVerificationEmail}
+          disabled={isLoading || isResending}
+          className="text-primary hover:text-primary-muted text-sm font-medium disabled:cursor-not-allowed disabled:opacity-70"
+        >
+          {isResending ? t("resending") : t("resendButton")}
+        </button>
+      </div>
     </>
   );
 }

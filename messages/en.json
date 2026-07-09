@@ -17,7 +17,22 @@
       "submit": "Create account",
       "submitting": "Creating account...",
       "success": "Check your email for further instructions.",
-      "fallbackError": "Could not create account."
+      "fallbackError": "Could not create account.",
+      "resendDescription": "Already registered, but did not receive the email?",
+      "resendButton": "Resend verification email",
+      "resending": "Sending verification email...",
+      "resendSuccess": "If the account exists and is not verified, a new email has been sent.",
+      "resendFallbackMessage": "Could not resend verification email.",
+      "emailRequiredForResend": "Enter your email first."
+    },
+    "VerifyEmailPage": {
+      "title": "Email verification",
+      "loadingMessage": "Verifying your email...",
+      "missingTokenMessage": "Verification token is missing.",
+      "successMessage": "Email was verified successfully.",
+      "fallbackErrorMessage": "Email verification failed.",
+      "goToLogin": "Go to log in",
+      "goToRegister": "Go to register"
     }
   },
   "Validation": {
