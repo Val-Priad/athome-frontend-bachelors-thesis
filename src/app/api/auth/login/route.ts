@@ -7,6 +7,6 @@ export async function POST(request: Request) {
       "Content-Type": "application/json",
     },
     body: await request.text(),
-    forwardResponseCookies: true,
+    forwardRequestCookies: false,
   });
 }

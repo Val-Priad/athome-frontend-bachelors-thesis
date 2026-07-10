@@ -12,6 +12,7 @@
       "showPassword": "Show password",
       "submit": "Create account",
       "submitting": "Creating account...",
+      "success": "Logged in successfully.",
       "title": "Log in"
     },
     "Register": {

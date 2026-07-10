@@ -133,8 +133,6 @@ export default function RegisterForm() {
             required
             className="input-field"
             placeholder={t("emailPlaceholder")}
-            aria-invalid={Boolean(emailError)}
-            aria-describedby={emailError ? "email-error" : undefined}
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
               setEmail(e.target.value);
               setFieldErrors((current) => ({
@@ -176,10 +174,6 @@ export default function RegisterForm() {
               }
               className="w-full bg-transparent outline-none"
               autoComplete="new-password"
-              aria-invalid={Boolean(passwordError)}
-              aria-describedby={
-                passwordError ? "password-error" : "password-hint"
-              }
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 setPassword(e.target.value);
                 setFieldErrors((current) => ({
@@ -193,7 +187,6 @@ export default function RegisterForm() {
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              aria-label={isHidden ? t("showPassword") : t("hidePassword")}
               className="text-muted-foreground hover:text-foreground"
             >
               {isHidden ? <FaRegEye /> : <FaRegEyeSlash />}

@@ -14,12 +14,17 @@ import {
 } from "@/shared/api/errors";
 
 import { logInUser, type LogInPayload } from "../api";
+import { useAuth } from "../../model/AuthProvider";
+import { useRouter } from "@/i18n/navigation";
 
 type LogInField = keyof LogInPayload;
 
 export default function LogInForm() {
   const t = useTranslations("Auth.LogIn");
   const tValidation = useTranslations("Validation");
+
+  const { refreshUser } = useAuth();
+  const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,6 +58,10 @@ export default function LogInForm() {
           error: (error) => getApiErrorMessage(error, t("fallbackMessage")),
         },
       );
+
+      await refreshUser();
+
+      router.replace("/");
     } catch (error) {
       const nextFieldErrors = getValidationFieldErrors<LogInField>(
         error,
@@ -69,109 +78,97 @@ export default function LogInForm() {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit} className="space-y-3">
-        <div className="space-y-2">
-          <label htmlFor="email" className="inline-block text-sm font-medium">
-            {t("emailLabel")}
-          </label>
+    <form onSubmit={handleSubmit} className="space-y-3">
+      <div className="space-y-2">
+        <label htmlFor="email" className="inline-block text-sm font-medium">
+          {t("emailLabel")}
+        </label>
 
+        <input
+          id="email"
+          name="email"
+          type="email"
+          value={email}
+          minLength={1}
+          maxLength={255}
+          required
+          className="input-field"
+          placeholder={t("emailPlaceholder")}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            setEmail(e.target.value);
+            setFieldErrors((current) => ({
+              ...current,
+              email: undefined,
+            }));
+          }}
+          onBlur={(e) => setEmail(e.target.value.trim())}
+        />
+
+        {emailError && (
+          <p id="email-error" className="text-danger text-sm">
+            {emailError}
+          </p>
+        )}
+      </div>
+
+      <div className="mb-5 space-y-2">
+        <label htmlFor="password" className="inline-block text-sm font-medium">
+          {t("passwordLabel")}
+        </label>
+
+        <div className="input-field flex items-center justify-between gap-2">
           <input
-            id="email"
-            name="email"
-            type="email"
-            value={email}
-            minLength={1}
+            id="password"
+            name="password"
+            type={isHidden ? "password" : "text"}
+            value={password}
+            minLength={8}
             maxLength={255}
             required
-            className="input-field"
-            placeholder={t("emailPlaceholder")}
-            aria-invalid={Boolean(emailError)}
-            aria-describedby={emailError ? "email-error" : undefined}
+            placeholder={
+              isHidden
+                ? t("passwordPlaceholderHidden")
+                : t("passwordPlaceholderVisible")
+            }
+            className="w-full bg-transparent outline-none"
+            autoComplete="current-password"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setEmail(e.target.value);
+              setPassword(e.target.value);
               setFieldErrors((current) => ({
                 ...current,
-                email: undefined,
+                password: undefined,
               }));
             }}
-            onBlur={(e) => setEmail(e.target.value.trim())}
+            onBlur={(e) => setPassword(e.target.value.trim())}
           />
 
-          {emailError && (
-            <p id="email-error" className="text-danger text-sm">
-              {emailError}
-            </p>
-          )}
-        </div>
-
-        <div className="mb-5 space-y-2">
-          <label
-            htmlFor="password"
-            className="inline-block text-sm font-medium"
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            className="text-muted-foreground hover:text-foreground"
           >
-            {t("passwordLabel")}
-          </label>
-
-          <div className="input-field flex items-center justify-between gap-2">
-            <input
-              id="password"
-              name="password"
-              type={isHidden ? "password" : "text"}
-              value={password}
-              minLength={8}
-              maxLength={255}
-              required
-              placeholder={
-                isHidden
-                  ? t("passwordPlaceholderHidden")
-                  : t("passwordPlaceholderVisible")
-              }
-              className="w-full bg-transparent outline-none"
-              autoComplete="new-password"
-              aria-invalid={Boolean(passwordError)}
-              aria-describedby={
-                passwordError ? "password-error" : "password-hint"
-              }
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setPassword(e.target.value);
-                setFieldErrors((current) => ({
-                  ...current,
-                  password: undefined,
-                }));
-              }}
-              onBlur={(e) => setPassword(e.target.value.trim())}
-            />
-
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              aria-label={isHidden ? t("showPassword") : t("hidePassword")}
-              className="text-muted-foreground hover:text-foreground"
-            >
-              {isHidden ? <FaRegEye /> : <FaRegEyeSlash />}
-            </button>
-          </div>
-
-          {passwordError && (
-            <p id="password-error" className="text-danger text-sm">
-              {passwordError}
-            </p>
-          )}
-
-          <p id="password-hint" className="text-muted-foreground text-sm">
-            {t("passwordHint")}
-          </p>
+            {isHidden ? <FaRegEye /> : <FaRegEyeSlash />}
+          </button>
         </div>
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="primary-btn w-full px-3 py-2 disabled:cursor-not-allowed disabled:opacity-70"
-        >
-          {isLoading ? t("submitting") : t("submit")}
-        </button>
-      </form>
-    </>
+        {passwordError && (
+          <p id="password-error" className="text-danger text-sm">
+            {passwordError}
+          </p>
+        )}
+
+        <p id="password-hint" className="text-muted-foreground text-sm">
+          {t("passwordHint")}
+        </p>
+      </div>
+
+      <button
+        type="submit"
+        disabled={isLoading}
+        className="primary-btn w-full px-3 py-2 disabled:cursor-not-allowed disabled:opacity-70"
+      >
+        {isLoading ? t("submitting") : t("submit")}
+      </button>
+    </form>
   );
 }

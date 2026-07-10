@@ -42,8 +42,8 @@ export async function proxyBackendRequest(
 ) {
   try {
     const {
-      forwardRequestCookies = false,
-      forwardResponseCookies = false,
+      forwardRequestCookies = true,
+      forwardResponseCookies = true,
       headers,
       ...init
     } = options;
