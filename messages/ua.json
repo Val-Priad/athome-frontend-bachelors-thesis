@@ -1,45 +1,45 @@
 {
-  "HomePage": {
-    "title": "Привіт, світ"
-  },
   "Auth": {
     "Register": {
-      "title": "Реєстрація",
       "description": "Зареєструйтеся, щоб відкрити додаткові можливості",
       "emailLabel": "Email",
       "emailPlaceholder": "you@example.com",
+      "fallbackError": "Не вдалося створити акаунт.",
+      "hidePassword": "Приховати пароль",
+      "passwordHint": "Пароль має містити щонайменше 8 символів і не повинен містити пробілів.",
       "passwordLabel": "Пароль",
       "passwordPlaceholderHidden": "********",
       "passwordPlaceholderVisible": "FlAm_able",
-      "passwordHint": "Пароль має містити щонайменше 8 символів і не повинен містити пробілів.",
       "showPassword": "Показати пароль",
-      "hidePassword": "Приховати пароль",
       "submit": "Створити акаунт",
       "submitting": "Створюємо акаунт...",
       "success": "Перевірте email для подальших інструкцій.",
-      "fallbackError": "Не вдалося створити акаунт."
+      "title": "Реєстрація"
     },
     "VerifyEmailPage": {
-      "title": "Підтвердження email",
+      "fallbackErrorMessage": "Не вдалося підтвердити email.",
+      "goToLogin": "Перейти до входу",
+      "goToRegister": "Перейти до реєстрації",
       "loadingMessage": "Підтверджуємо вашу email-адресу...",
       "missingTokenMessage": "Токен підтвердження відсутній.",
       "successMessage": "Email успішно підтверджено.",
-      "fallbackErrorMessage": "Не вдалося підтвердити email.",
-      "goToLogin": "Перейти до входу",
-      "goToRegister": "Перейти до реєстрації"
+      "title": "Підтвердження email"
     }
   },
+  "HomePage": {
+    "title": "Привіт, світ"
+  },
   "Validation": {
+    "errors": {
+      "default": "{message}",
+      "missing": "{field} обов'язковий.",
+      "string_too_long": "{field} має містити максимум {max_length} символів.",
+      "string_too_short": "{field} має містити щонайменше {min_length} символів.",
+      "value_error": "{message}"
+    },
     "fields": {
       "email": "Email",
       "password": "Пароль"
-    },
-    "errors": {
-      "missing": "{field} обов'язковий.",
-      "string_too_short": "{field} має містити щонайменше {min_length} символів.",
-      "string_too_long": "{field} має містити максимум {max_length} символів.",
-      "value_error": "{message}",
-      "default": "{message}"
     }
   }
 }

@@ -14,13 +14,16 @@ export const metadata: Metadata = {
   description: "Real estate app",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang={locale} className={inter.variable}>
       <body className="bg-background text-foreground">
         <Providers>{children}</Providers>
       </body>

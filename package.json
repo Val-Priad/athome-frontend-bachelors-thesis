@@ -11,7 +11,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --cache --fix"
+    "lint": "eslint . --cache --fix",
+    "sort-messages": "./scripts/sort-messages.py"
   },
   "dependencies": {
     "@cspell/dict-uk-ua": "^4.0.6",

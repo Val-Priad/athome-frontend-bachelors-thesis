@@ -2,7 +2,9 @@
 
 ## 1. Current Priority
 
-2. add resend email button on registration page
+1. auth provider
+2. main page
+3. me section
 
 ## 2. Global App Structure
 

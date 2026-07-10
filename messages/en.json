@@ -1,51 +1,65 @@
 {
-  "HomePage": {
-    "title": "Hello world"
-  },
   "Auth": {
-    "Register": {
-      "title": "Register",
-      "description": "Sign up to continue to AtHome.",
+    "LogIn": {
+      "description": "Log in to continue to AtHome.",
       "emailLabel": "Email",
       "emailPlaceholder": "you@example.com",
+      "hidePassword": "Hide password",
+      "passwordHint": "Password must be at least 8 characters and must not contain spaces.",
       "passwordLabel": "Password",
       "passwordPlaceholderHidden": "********",
       "passwordPlaceholderVisible": "FlAm_able",
-      "passwordHint": "Password must be at least 8 characters and must not contain spaces.",
       "showPassword": "Show password",
+      "submit": "Create account",
+      "submitting": "Creating account...",
+      "title": "Log in"
+    },
+    "Register": {
+      "description": "Sign up to continue to AtHome.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "emailRequiredForResend": "Enter your email first.",
+      "fallbackError": "Could not create account.",
       "hidePassword": "Hide password",
+      "passwordHint": "Password must be at least 8 characters and must not contain spaces.",
+      "passwordLabel": "Password",
+      "passwordPlaceholderHidden": "********",
+      "passwordPlaceholderVisible": "FlAm_able",
+      "resendButton": "Resend verification email",
+      "resendDescription": "Already registered, but did not receive the email?",
+      "resendFallbackMessage": "Could not resend verification email.",
+      "resendSuccess": "If the account exists and is not verified, a new email has been sent.",
+      "resending": "Sending verification email...",
+      "showPassword": "Show password",
       "submit": "Create account",
       "submitting": "Creating account...",
       "success": "Check your email for further instructions.",
-      "fallbackError": "Could not create account.",
-      "resendDescription": "Already registered, but did not receive the email?",
-      "resendButton": "Resend verification email",
-      "resending": "Sending verification email...",
-      "resendSuccess": "If the account exists and is not verified, a new email has been sent.",
-      "resendFallbackMessage": "Could not resend verification email.",
-      "emailRequiredForResend": "Enter your email first."
+      "title": "Register"
     },
     "VerifyEmailPage": {
-      "title": "Email verification",
+      "fallbackErrorMessage": "Email verification failed.",
+      "goToLogin": "Go to log in",
+      "goToRegister": "Go to register",
       "loadingMessage": "Verifying your email...",
       "missingTokenMessage": "Verification token is missing.",
       "successMessage": "Email was verified successfully.",
-      "fallbackErrorMessage": "Email verification failed.",
-      "goToLogin": "Go to log in",
-      "goToRegister": "Go to register"
+      "title": "Email verification"
     }
   },
+  "HomePage": {
+    "title": "Hello world"
+  },
   "Validation": {
+    "errors": {
+      "default": "{message}",
+      "missing": "{field} is required.",
+      "string_too_long": "{field} must be at most {max_length} characters long.",
+      "string_too_short": "{field} must be at least {min_length} characters long.",
+      "value_error": "{message}"
+    },
     "fields": {
       "email": "Email",
       "password": "Password"
-    },
-    "errors": {
-      "missing": "{field} is required.",
-      "string_too_short": "{field} must be at least {min_length} characters long.",
-      "string_too_long": "{field} must be at most {max_length} characters long.",
-      "value_error": "{message}",
-      "default": "{message}"
     }
   }
 }
