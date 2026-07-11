@@ -1,15 +1,15 @@
 "use client";
 
-import { CurrentUser } from "@/entities/user/types";
+import type { CurrentUser } from "@/entities/user/types";
 import {
   createContext,
-  ReactNode,
+  type ReactNode,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
+
 import { getCurrentUser } from "../api";
 
 type SessionContextValue = {
@@ -19,13 +19,19 @@ type SessionContextValue = {
   refreshUser: () => Promise<void>;
 };
 
+type SessionProviderProps = Readonly<{
+  children: ReactNode;
+  initialUser: CurrentUser | null;
+}>;
+
 const SessionContext = createContext<SessionContextValue | null>(null);
 
 export function SessionProvider({
   children,
-}: Readonly<{ children: ReactNode }>) {
-  const [user, setUser] = useState<CurrentUser | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  initialUser,
+}: SessionProviderProps) {
+  const [user, setUser] = useState<CurrentUser | null>(initialUser);
+  const [isLoading, setIsLoading] = useState(false);
 
   const refreshUser = useCallback(async () => {
     setIsLoading(true);
@@ -38,34 +44,6 @@ export function SessionProvider({
     } finally {
       setIsLoading(false);
     }
-  }, []);
-
-  useEffect(() => {
-    let ignore = false;
-
-    async function loadCurrentUser() {
-      try {
-        const currentUser = await getCurrentUser();
-
-        if (!ignore) {
-          setUser(currentUser);
-        }
-      } catch {
-        if (!ignore) {
-          setUser(null);
-        }
-      } finally {
-        if (!ignore) {
-          setIsLoading(false);
-        }
-      }
-    }
-
-    void loadCurrentUser();
-
-    return () => {
-      ignore = true;
-    };
   }, []);
 
   const value = useMemo<SessionContextValue>(

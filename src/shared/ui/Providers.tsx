@@ -1,13 +1,17 @@
+import type { CurrentUser } from "@/entities/user/types";
 import { SessionProvider } from "@/features/auth/session/model/SessionProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "react-hot-toast";
 
-export default function Providers({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+type ProvidersProps = Readonly<{
+  children: React.ReactNode;
+  initialUser: CurrentUser | null;
+}>;
+
+export default function Providers({ children, initialUser }: ProvidersProps) {
   return (
     <NextIntlClientProvider>
-      <SessionProvider>
+      <SessionProvider initialUser={initialUser}>
         {children}
         <Toaster position="top-center" reverseOrder={false} />
       </SessionProvider>

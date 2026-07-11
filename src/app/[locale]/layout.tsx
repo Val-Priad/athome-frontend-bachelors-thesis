@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import "../css/global.css";
+
+import { getCurrentUserOnServer } from "@/features/auth/session/server";
 import Providers from "@/shared/ui/Providers";
 
 const inter = Inter({
@@ -21,11 +23,15 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }>) {
-  const { locale } = await params;
+  const [{ locale }, initialUser] = await Promise.all([
+    params,
+    getCurrentUserOnServer(),
+  ]);
+
   return (
     <html lang={locale} className={inter.variable}>
       <body className="bg-background text-foreground">
-        <Providers>{children}</Providers>
+        <Providers initialUser={initialUser}>{children}</Providers>
       </body>
     </html>
   );
