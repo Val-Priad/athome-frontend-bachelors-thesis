@@ -14,7 +14,7 @@ import {
 } from "@/shared/api/errors";
 
 import { logInUser, type LogInPayload } from "../api";
-import { useAuth } from "../../model/AuthProvider";
+import { useSession } from "../../session/model/SessionProvider";
 import { useRouter } from "@/i18n/navigation";
 
 type LogInField = keyof LogInPayload;
@@ -23,7 +23,7 @@ export default function LogInForm() {
   const t = useTranslations("Auth.LogIn");
   const tValidation = useTranslations("Validation");
 
-  const { refreshUser } = useAuth();
+  const { refreshUser } = useSession();
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -101,7 +101,6 @@ export default function LogInForm() {
               email: undefined,
             }));
           }}
-          onBlur={(e) => setEmail(e.target.value.trim())}
         />
 
         {emailError && (
@@ -139,7 +138,6 @@ export default function LogInForm() {
                 password: undefined,
               }));
             }}
-            onBlur={(e) => setPassword(e.target.value.trim())}
           />
 
           <button

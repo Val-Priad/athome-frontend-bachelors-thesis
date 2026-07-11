@@ -1,4 +1,4 @@
-import { CurrentUser } from "@/app/entities/user/types";
+import { CurrentUser } from "@/entities/user/types";
 import { handleApiResponse } from "@/shared/api/response";
 import type { ApiSuccessResponse } from "@/shared/api/types";
 

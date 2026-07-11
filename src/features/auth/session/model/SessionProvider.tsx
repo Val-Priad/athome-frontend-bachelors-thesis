@@ -1,7 +1,6 @@
 "use client";
 
 import { CurrentUser } from "@/entities/user/types";
-import { getCurrentUser } from "@/features/users/me/api";
 import {
   createContext,
   ReactNode,
@@ -11,17 +10,20 @@ import {
   useMemo,
   useState,
 } from "react";
+import { getCurrentUser } from "../api";
 
-type AuthContextValue = {
+type SessionContextValue = {
   user: CurrentUser | null;
   isLoading: boolean;
   isAuthenticated: boolean;
   refreshUser: () => Promise<void>;
 };
 
-const AuthContext = createContext<AuthContextValue | null>(null);
+const SessionContext = createContext<SessionContextValue | null>(null);
 
-export function AuthProvider({ children }: Readonly<{ children: ReactNode }>) {
+export function SessionProvider({
+  children,
+}: Readonly<{ children: ReactNode }>) {
   const [user, setUser] = useState<CurrentUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -66,7 +68,7 @@ export function AuthProvider({ children }: Readonly<{ children: ReactNode }>) {
     };
   }, []);
 
-  const value = useMemo<AuthContextValue>(
+  const value = useMemo<SessionContextValue>(
     () => ({
       user,
       isLoading,
@@ -76,14 +78,16 @@ export function AuthProvider({ children }: Readonly<{ children: ReactNode }>) {
     [user, isLoading, refreshUser],
   );
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <SessionContext.Provider value={value}>{children}</SessionContext.Provider>
+  );
 }
 
-export function useAuth(): AuthContextValue {
-  const context = useContext(AuthContext);
+export function useSession(): SessionContextValue {
+  const context = useContext(SessionContext);
 
   if (!context) {
-    throw new Error("useAuth must be used inside AuthProvider");
+    throw new Error("useSession must be used inside SessionProvider");
   }
 
   return context;

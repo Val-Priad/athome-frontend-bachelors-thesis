@@ -11,7 +11,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --cache --fix",
+    "lint": "tsc --noEmit && eslint . --cache --fix",
     "sort-messages": "./scripts/sort-messages.py"
   },
   "dependencies": {

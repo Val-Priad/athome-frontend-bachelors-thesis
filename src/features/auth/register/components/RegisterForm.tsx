@@ -140,7 +140,6 @@ export default function RegisterForm() {
                 email: undefined,
               }));
             }}
-            onBlur={(e) => setEmail(e.target.value.trim())}
           />
 
           {emailError && (
@@ -181,7 +180,6 @@ export default function RegisterForm() {
                   password: undefined,
                 }));
               }}
-              onBlur={(e) => setPassword(e.target.value.trim())}
             />
 
             <button
