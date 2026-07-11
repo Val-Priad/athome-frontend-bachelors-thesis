@@ -7,7 +7,6 @@ import { useTranslations } from "next-intl";
 
 import { FieldErrors, getFirstFieldError } from "@/shared/api/validation";
 
-import { formatValidationError } from "@/shared/api/validationI18n";
 import {
   getApiErrorMessage,
   getValidationFieldErrors,
@@ -16,6 +15,7 @@ import {
 import { logInUser, type LogInPayload } from "../api";
 import { useSession } from "../../session/model/SessionProvider";
 import { useRouter } from "@/i18n/navigation";
+import { formatValidationError } from "@/shared/api/validationI18n";
 
 type LogInField = keyof LogInPayload;
 

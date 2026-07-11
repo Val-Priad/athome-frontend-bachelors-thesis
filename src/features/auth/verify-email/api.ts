@@ -1,10 +1,7 @@
 import { handleApiResponse } from "@/shared/api/response";
+import { apiMessageResponseSchema } from "@/shared/api/schemas";
 
-export type VerifyEmailResponse = {
-  message: string;
-};
-
-export async function verifyEmail(token: string): Promise<VerifyEmailResponse> {
+export async function verifyEmail(token: string) {
   const response = await fetch(
     `/api/auth/verify-email?token=${encodeURIComponent(token)}`,
     {
@@ -12,5 +9,5 @@ export async function verifyEmail(token: string): Promise<VerifyEmailResponse> {
     },
   );
 
-  return handleApiResponse<VerifyEmailResponse>(response);
+  return handleApiResponse(response, apiMessageResponseSchema);
 }

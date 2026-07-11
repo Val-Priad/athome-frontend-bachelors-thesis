@@ -1,4 +1,4 @@
-import { ValidationFieldError } from "./types";
+import type { ValidationFieldError } from "./schemas";
 
 type Translate = (
   key: string,

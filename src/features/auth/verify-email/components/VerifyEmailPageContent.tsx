@@ -5,9 +5,9 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
-import ApiError from "@/shared/api/apiError";
 import { verifyEmail } from "../api";
 import { useTranslations } from "next-intl";
+import { ApiError } from "@/shared/api/errors";
 
 type VerificationStatus = "loading" | "success" | "error";
 

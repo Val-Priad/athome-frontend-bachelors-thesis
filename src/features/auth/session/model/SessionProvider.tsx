@@ -1,6 +1,6 @@
 "use client";
 
-import type { CurrentUser } from "@/entities/user/types";
+import type { CurrentUser } from "@/entities/user/schema";
 import {
   createContext,
   type ReactNode,

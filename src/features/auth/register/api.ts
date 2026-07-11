@@ -1,25 +1,16 @@
 import { handleApiResponse } from "@/shared/api/response";
+import { apiMessageResponseSchema } from "@/shared/api/schemas";
 
 export type RegisterPayload = {
   email: string;
   password: string;
 };
 
-type RegisterResponse = {
-  message: string;
-};
-
 export type ResendVerificationPayload = {
   email: string;
 };
 
-type ResendVerificationResponse = {
-  message: string;
-};
-
-export async function registerUser(
-  payload: RegisterPayload,
-): Promise<RegisterResponse> {
+export async function registerUser(payload: RegisterPayload) {
   const response = await fetch("/api/auth/register", {
     method: "POST",
     headers: {
@@ -28,12 +19,12 @@ export async function registerUser(
     body: JSON.stringify(payload),
   });
 
-  return handleApiResponse<RegisterResponse>(response);
+  return handleApiResponse(response, apiMessageResponseSchema);
 }
 
 export async function resendVerificationEmail(
   payload: ResendVerificationPayload,
-): Promise<ResendVerificationResponse> {
+) {
   const response = await fetch("/api/auth/resend-verification-email", {
     method: "POST",
     headers: {
@@ -42,5 +33,5 @@ export async function resendVerificationEmail(
     body: JSON.stringify(payload),
   });
 
-  return handleApiResponse<ResendVerificationResponse>(response);
+  return handleApiResponse(response, apiMessageResponseSchema);
 }

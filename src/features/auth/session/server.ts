@@ -2,9 +2,12 @@ import "server-only";
 
 import { cookies } from "next/headers";
 
-import type { CurrentUser } from "@/entities/user/types";
-import { getBackendUrl } from "@/shared/api/backend";
-import type { ApiSuccessResponse } from "@/shared/api/types";
+import { currentUserSchema, type CurrentUser } from "@/entities/user/schema";
+import { handleApiResponse } from "@/shared/api/response";
+import { apiDataResponseSchema } from "@/shared/api/schemas";
+import { getBackendUrl } from "@/shared/api/getBackendUrl";
+
+const currentUserResponseSchema = apiDataResponseSchema(currentUserSchema);
 
 export async function getCurrentUserOnServer(): Promise<CurrentUser | null> {
   try {
@@ -27,17 +30,9 @@ export async function getCurrentUserOnServer(): Promise<CurrentUser | null> {
       return null;
     }
 
-    if (!response.ok) {
-      console.error(
-        `Failed to load current user: ${response.status} ${response.statusText}`,
-      );
+    const result = await handleApiResponse(response, currentUserResponseSchema);
 
-      return null;
-    }
-
-    const result = (await response.json()) as ApiSuccessResponse<CurrentUser>;
-
-    return result.data ?? null;
+    return result.data;
   } catch (error) {
     console.error("Failed to initialize current user", error);
 

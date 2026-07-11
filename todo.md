@@ -2,9 +2,32 @@
 
 ## 1. Current Priority
 
-1. auth provider
-2. main page
-3. me section
+What’s working well:
+
+- Thin route files in src/app delegate to feature components.
+- Authentication is grouped coherently under src/features/auth.
+- Shared API error handling, validation, and proxy logic are centralized.
+- The backend URL and cookies are kept behind Next.js API routes, which is a good security and deployment boundary.
+- Localization is isolated cleanly under src/i18n.
+- TypeScript and ESLint currently pass.
+
+The main things I would improve:
+
+1. Auth and user responsibilities are slightly mixed. AuthProvider imports features/users/me/api. Conceptually, authentication/session state should own the “current user” query, or you could create something like entities/session /
+   shared/auth.
+
+2. The global AuthProvider performs /api/users/me on every page load. That is acceptable now, but later you may want server-side session initialization or a query/cache library to avoid duplicated requests and loading flicker.
+3. Successful API responses are mostly type-cast rather than runtime-validated in src/shared/api/response.ts. Error responses are guarded, but success payloads are trusted. As the backend grows, add response guards or schemas.
+4. The proxy in src/shared/api/proxy.ts assumes JSON responses and only forwards cookies. It may eventually need to preserve relevant headers, handle non-JSON responses, and log upstream failures instead of silently converting every
+   proxy exception into the same 500 response.
+
+5. The login and registration forms contain duplicated form UI and logic. A reusable password field and shared auth form primitives would reduce maintenance.
+6. There are no tests or test script yet. The architecture is good, but API proxy tests, validation tests, and auth-flow tests would protect it as it expands.
+
+Overall: keep this structure. I would not introduce a heavier architecture yet. The next valuable steps are clarifying the auth/session boundary, adding runtime API schemas, extracting duplicated auth form pieces, and adding tests.
+
+7. main page
+8. me section
 
 ## 2. Global App Structure
 

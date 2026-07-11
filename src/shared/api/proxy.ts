@@ -1,9 +1,7 @@
-import { NextResponse } from "next/server";
-import { getBackendUrl } from "./backend";
+import "server-only";
 
-export async function readJsonSafely(response: Response): Promise<unknown> {
-  return response.json().catch(() => null);
-}
+import { NextResponse } from "next/server";
+import { getBackendUrl } from "./getBackendUrl";
 
 type ProxyBackendRequestOptions = RequestInit & {
   forwardRequestCookies?: boolean;
@@ -66,7 +64,7 @@ export async function proxyBackendRequest(
       headers: backendRequestHeaders,
     });
 
-    const data = await readJsonSafely(response);
+    const data = await response.json().catch(() => null);
 
     const nextResponse = NextResponse.json(data, {
       status: response.status,

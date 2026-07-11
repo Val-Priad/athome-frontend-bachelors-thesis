@@ -1,4 +1,4 @@
-import { ValidationFieldError } from "./types";
+import type { ValidationFieldError } from "./schemas";
 
 export type FieldErrors<TField extends string> = Partial<
   Record<TField, string[]>
