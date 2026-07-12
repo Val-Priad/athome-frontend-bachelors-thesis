@@ -1,6 +1,7 @@
 import "server-only";
 
 import { NextResponse } from "next/server";
+
 import { getBackendUrl } from "./getBackendUrl";
 
 type ProxyBackendRequestOptions = RequestInit & {
@@ -8,28 +9,27 @@ type ProxyBackendRequestOptions = RequestInit & {
   forwardResponseCookies?: boolean;
 };
 
+const FORWARDED_RESPONSE_HEADERS = [
+  "content-type", // Preserves the JSON response format and character encoding.
+  "retry-after", // Tells the client when to retry after rate limiting.
+] as const;
+
+function copyResponseHeaders(fromResponse: Response, toHeaders: Headers): void {
+  for (const headerName of FORWARDED_RESPONSE_HEADERS) {
+    const value = fromResponse.headers.get(headerName);
+
+    if (value !== null) {
+      toHeaders.set(headerName, value);
+    }
+  }
+}
+
 function copySetCookieHeaders(
   fromResponse: Response,
-  toResponse: NextResponse,
-) {
-  const headers = fromResponse.headers as Headers & {
-    getSetCookie?: () => string[];
-  };
-
-  const setCookies = headers.getSetCookie?.();
-
-  if (setCookies?.length) {
-    for (const cookie of setCookies) {
-      toResponse.headers.append("set-cookie", cookie);
-    }
-
-    return;
-  }
-
-  const setCookie = fromResponse.headers.get("set-cookie");
-
-  if (setCookie) {
-    toResponse.headers.append("set-cookie", setCookie);
+  toHeaders: Headers,
+): void {
+  for (const cookie of fromResponse.headers.getSetCookie()) {
+    toHeaders.append("set-cookie", cookie);
   }
 }
 
@@ -37,7 +37,7 @@ export async function proxyBackendRequest(
   request: Request,
   backendPath: string,
   options: ProxyBackendRequestOptions = {},
-) {
+): Promise<NextResponse> {
   try {
     const {
       forwardRequestCookies = true,
@@ -47,7 +47,9 @@ export async function proxyBackendRequest(
     } = options;
 
     const requestUrl = new URL(request.url);
-    const backendUrl = `${getBackendUrl()}${backendPath}${requestUrl.search}`;
+    const backendUrl = new URL(backendPath, getBackendUrl());
+
+    backendUrl.search = requestUrl.search;
 
     const backendRequestHeaders = new Headers(headers);
 
@@ -59,31 +61,40 @@ export async function proxyBackendRequest(
       }
     }
 
-    const response = await fetch(backendUrl, {
+    const backendResponse = await fetch(backendUrl, {
       ...init,
       headers: backendRequestHeaders,
     });
 
-    const data = await response.json().catch(() => null);
+    const responseHeaders = new Headers();
 
-    const nextResponse = NextResponse.json(data, {
-      status: response.status,
-    });
+    copyResponseHeaders(backendResponse, responseHeaders);
 
     if (forwardResponseCookies) {
-      copySetCookieHeaders(response, nextResponse);
+      copySetCookieHeaders(backendResponse, responseHeaders);
     }
 
-    return nextResponse;
-  } catch {
+    return new NextResponse(backendResponse.body, {
+      status: backendResponse.status,
+      headers: responseHeaders,
+    });
+  } catch (error) {
+    console.error("Backend proxy request failed", {
+      method: options.method ?? request.method,
+      backendPath,
+      error,
+    });
+
     return NextResponse.json(
       {
         error: {
-          code: "internal_client_error",
-          message: "Something went wrong.",
+          code: "backend_unavailable",
+          message: "The service is temporarily unavailable.",
         },
       },
-      { status: 500 },
+      {
+        status: 502,
+      },
     );
   }
 }
