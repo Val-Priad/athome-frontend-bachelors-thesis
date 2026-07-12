@@ -1,44 +1,84 @@
 {
   "Auth": {
-    "Register": {
-      "description": "Зареєструйтеся, щоб відкрити додаткові можливості",
-      "emailLabel": "Email",
+    "LogIn": {
+      "description": "Увійдіть, щоб продовжити роботу з AtHome.",
+      "emailLabel": "Електронна пошта",
       "emailPlaceholder": "you@example.com",
+      "emailRequiredForPasswordReset": "Введіть електронну пошту, щоб скинути пароль.",
+      "forgotPassword": "Забули пароль?",
+      "hidePassword": "Приховати пароль",
+      "passwordHint": "Пароль має містити щонайменше 8 символів і не повинен містити пробілів.",
+      "passwordLabel": "Пароль",
+      "passwordPlaceholderHidden": "Введіть пароль",
+      "passwordPlaceholderVisible": "Ваш пароль",
+      "resetPasswordRequestFallbackMessage": "Не вдалося надіслати запит на скидання пароля.",
+      "resetPasswordRequestSubmitting": "Надсилання посилання для скидання...",
+      "resetPasswordRequestSuccess": "Якщо акаунт існує, посилання для скидання пароля було надіслано.",
+      "showPassword": "Показати пароль",
+      "submit": "Увійти",
+      "submitting": "Вхід...",
+      "success": "Вхід виконано успішно.",
+      "title": "Вхід"
+    },
+    "Register": {
+      "description": "Зареєструйтеся, щоб продовжити роботу з AtHome.",
+      "emailLabel": "Електронна пошта",
+      "emailPlaceholder": "you@example.com",
+      "emailRequiredForResend": "Спочатку введіть електронну пошту.",
       "fallbackError": "Не вдалося створити акаунт.",
       "hidePassword": "Приховати пароль",
       "passwordHint": "Пароль має містити щонайменше 8 символів і не повинен містити пробілів.",
       "passwordLabel": "Пароль",
-      "passwordPlaceholderHidden": "********",
-      "passwordPlaceholderVisible": "FlAm_able",
+      "passwordPlaceholderHidden": "Введіть пароль",
+      "passwordPlaceholderVisible": "Ваш пароль",
+      "resendButton": "Повторно надіслати лист для підтвердження",
+      "resendDescription": "Уже зареєструвалися, але не отримали листа?",
+      "resendFallbackMessage": "Не вдалося повторно надіслати лист для підтвердження.",
+      "resendSuccess": "Якщо акаунт існує та ще не підтверджений, новий лист було надіслано.",
+      "resending": "Надсилання листа для підтвердження...",
       "showPassword": "Показати пароль",
       "submit": "Створити акаунт",
-      "submitting": "Створюємо акаунт...",
-      "success": "Перевірте email для подальших інструкцій.",
+      "submitting": "Створення акаунта...",
+      "success": "Перевірте електронну пошту для подальших інструкцій.",
       "title": "Реєстрація"
     },
+    "ResetPassword": {
+      "description": "Введіть новий пароль, який ви хочете використовувати для свого акаунта.",
+      "fallbackMessage": "Не вдалося скинути пароль.",
+      "missingToken": "Токен для скидання пароля відсутній.",
+      "passwordHint": "Пароль має містити щонайменше 8 символів.",
+      "passwordLabel": "Новий пароль",
+      "passwordPlaceholderHidden": "Введіть новий пароль",
+      "passwordPlaceholderVisible": "Ваш новий пароль",
+      "requestNewLink": "Запросіть нове посилання на сторінці входу",
+      "submit": "Скинути пароль",
+      "submitting": "Скидання пароля...",
+      "success": "Ваш пароль успішно змінено.",
+      "title": "Створення нового пароля"
+    },
     "VerifyEmailPage": {
-      "fallbackErrorMessage": "Не вдалося підтвердити email.",
+      "fallbackErrorMessage": "Не вдалося підтвердити електронну пошту.",
       "goToLogin": "Перейти до входу",
       "goToRegister": "Перейти до реєстрації",
-      "loadingMessage": "Підтверджуємо вашу email-адресу...",
+      "loadingMessage": "Підтвердження електронної пошти...",
       "missingTokenMessage": "Токен підтвердження відсутній.",
-      "successMessage": "Email успішно підтверджено.",
-      "title": "Підтвердження email"
+      "successMessage": "Електронну пошту успішно підтверджено.",
+      "title": "Підтвердження електронної пошти"
     }
   },
   "HomePage": {
-    "title": "Привіт, світ"
+    "title": "Привіт, світе"
   },
   "Validation": {
     "errors": {
       "default": "{message}",
-      "missing": "{field} обов'язковий.",
-      "string_too_long": "{field} має містити максимум {max_length} символів.",
-      "string_too_short": "{field} має містити щонайменше {min_length} символів.",
+      "missing": "Поле «{field}» є обов’язковим.",
+      "string_too_long": "Поле «{field}» має містити не більше {max_length} символів.",
+      "string_too_short": "Поле «{field}» має містити щонайменше {min_length} символів.",
       "value_error": "{message}"
     },
     "fields": {
-      "email": "Email",
+      "email": "Електронна пошта",
       "password": "Пароль"
     }
   }

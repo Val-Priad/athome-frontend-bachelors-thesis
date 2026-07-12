@@ -12,6 +12,7 @@ import {
 import { type FieldErrors, getFirstFieldError } from "@/shared/api/validation";
 import { formatValidationError } from "@/shared/api/validationI18n";
 
+import { requestPasswordReset } from "../../reset-password/api";
 import { useSession } from "../../session/model/SessionProvider";
 import EmailField from "../../shared/components/EmailField";
 import PasswordField from "../../shared/components/PasswordField";
@@ -29,6 +30,7 @@ export default function LogInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors<LogInField>>({});
 
   const emailError = getFirstFieldError(fieldErrors, "email");
@@ -71,6 +73,55 @@ export default function LogInForm() {
     }
   }
 
+  async function handleForgotPassword() {
+    const trimmedEmail = email.trim();
+
+    if (!trimmedEmail) {
+      setFieldErrors((current) => ({
+        ...current,
+        email: [t("emailRequiredForPasswordReset")],
+      }));
+
+      return;
+    }
+
+    setEmail(trimmedEmail);
+    setIsResettingPassword(true);
+    setFieldErrors((current) => ({
+      ...current,
+      email: undefined,
+    }));
+
+    try {
+      await toast.promise(
+        requestPasswordReset({
+          email: trimmedEmail,
+        }),
+        {
+          loading: t("resetPasswordRequestSubmitting"),
+          success: t("resetPasswordRequestSuccess"),
+          error: (error) =>
+            getApiErrorMessage(error, t("resetPasswordRequestFallbackMessage")),
+        },
+      );
+    } catch (error) {
+      const nextFieldErrors = getValidationFieldErrors<LogInField>(
+        error,
+        (validationError) =>
+          formatValidationError(validationError, tValidation),
+      );
+
+      if (nextFieldErrors) {
+        setFieldErrors((current) => ({
+          ...current,
+          ...nextFieldErrors,
+        }));
+      }
+    } finally {
+      setIsResettingPassword(false);
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
       <EmailField
@@ -104,13 +155,25 @@ export default function LogInForm() {
         }}
       />
 
-      <button
-        type="submit"
-        disabled={isLoading}
-        className="primary-btn w-full px-3 py-2 disabled:cursor-not-allowed disabled:opacity-70"
-      >
-        {isLoading ? t("submitting") : t("submit")}
-      </button>
+      <div className="flex justify-between">
+        <button
+          type="button"
+          onClick={handleForgotPassword}
+          disabled={isLoading || isResettingPassword}
+          className="text-primary hover:text-primary-muted ml-2 text-center text-sm font-medium"
+        >
+          {isResettingPassword
+            ? t("resetPasswordRequestSubmitting")
+            : t("forgotPassword")}
+        </button>
+        <button
+          type="submit"
+          disabled={isLoading || isResettingPassword}
+          className="primary-btn w-1/2 py-2"
+        >
+          {isLoading ? t("submitting") : t("submit")}
+        </button>
+      </div>
     </form>
   );
 }

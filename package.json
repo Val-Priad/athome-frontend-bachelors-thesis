@@ -12,11 +12,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "tsc --noEmit && eslint . --cache --fix",
-    "sort-messages": "./scripts/sort-messages.py"
+    "sort-messages": "./scripts/sort-messages.py",
+    "spellcheck": "cspell ."
   },
   "dependencies": {
-    "@cspell/dict-uk-ua": "^4.0.6",
-    "cspell": "^9.8.0",
     "next": "16.2.9",
     "next-intl": "^4.13.1",
     "react": "19.2.4",
@@ -26,10 +25,12 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@cspell/dict-uk-ua": "^4.0.6",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cspell": "^10.0.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "prettier": "^3.9.4",
