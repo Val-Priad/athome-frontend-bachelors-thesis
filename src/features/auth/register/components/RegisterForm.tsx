@@ -1,18 +1,23 @@
 "use client";
 
-import { ChangeEvent, SyntheticEvent, useState } from "react";
-import toast from "react-hot-toast";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useTranslations } from "next-intl";
+import { type SyntheticEvent, useState } from "react";
+import toast from "react-hot-toast";
 
-import { FieldErrors, getFirstFieldError } from "@/shared/api/validation";
-
-import { RegisterPayload, registerUser, resendVerificationEmail } from "../api";
-import { formatValidationError } from "@/shared/api/validationI18n";
 import {
   getApiErrorMessage,
   getValidationFieldErrors,
 } from "@/shared/api/errors";
+import { type FieldErrors, getFirstFieldError } from "@/shared/api/validation";
+import { formatValidationError } from "@/shared/api/validationI18n";
+
+import EmailField from "../../shared/components/EmailField";
+import PasswordField from "../../shared/components/PasswordField";
+import {
+  type RegisterPayload,
+  registerUser,
+  resendVerificationEmail,
+} from "../api";
 
 type RegisterField = keyof RegisterPayload;
 
@@ -22,20 +27,14 @@ export default function RegisterForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [isLoading, setIsLoading] = useState(false);
   const [isResending, setIsResending] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors<RegisterField>>(
     {},
   );
-  const [isHidden, setIsHidden] = useState(true);
 
   const emailError = getFirstFieldError(fieldErrors, "email");
   const passwordError = getFirstFieldError(fieldErrors, "password");
-
-  function togglePasswordVisibility() {
-    setIsHidden((prev) => !prev);
-  }
 
   async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -118,89 +117,36 @@ export default function RegisterForm() {
   return (
     <>
       <form onSubmit={handleSubmit} className="space-y-3">
-        <div className="space-y-2">
-          <label htmlFor="email" className="inline-block text-sm font-medium">
-            {t("emailLabel")}
-          </label>
+        <EmailField
+          value={email}
+          label={t("emailLabel")}
+          placeholder={t("emailPlaceholder")}
+          error={emailError}
+          onChange={(event) => {
+            setEmail(event.target.value);
+            setFieldErrors((current) => ({
+              ...current,
+              email: undefined,
+            }));
+          }}
+        />
 
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={email}
-            minLength={1}
-            maxLength={255}
-            required
-            className="input-field"
-            placeholder={t("emailPlaceholder")}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setEmail(e.target.value);
-              setFieldErrors((current) => ({
-                ...current,
-                email: undefined,
-              }));
-            }}
-          />
-
-          {emailError && (
-            <p id="email-error" className="text-danger text-sm">
-              {emailError}
-            </p>
-          )}
-        </div>
-
-        <div className="mb-5 space-y-2">
-          <label
-            htmlFor="password"
-            className="inline-block text-sm font-medium"
-          >
-            {t("passwordLabel")}
-          </label>
-
-          <div className="input-field flex items-center justify-between gap-2">
-            <input
-              id="password"
-              name="password"
-              type={isHidden ? "password" : "text"}
-              value={password}
-              minLength={8}
-              maxLength={255}
-              required
-              placeholder={
-                isHidden
-                  ? t("passwordPlaceholderHidden")
-                  : t("passwordPlaceholderVisible")
-              }
-              className="w-full bg-transparent outline-none"
-              autoComplete="new-password"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setPassword(e.target.value);
-                setFieldErrors((current) => ({
-                  ...current,
-                  password: undefined,
-                }));
-              }}
-            />
-
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              className="text-muted-foreground hover:text-foreground"
-            >
-              {isHidden ? <FaRegEye /> : <FaRegEyeSlash />}
-            </button>
-          </div>
-
-          {passwordError && (
-            <p id="password-error" className="text-danger text-sm">
-              {passwordError}
-            </p>
-          )}
-
-          <p id="password-hint" className="text-muted-foreground text-sm">
-            {t("passwordHint")}
-          </p>
-        </div>
+        <PasswordField
+          value={password}
+          label={t("passwordLabel")}
+          hiddenPlaceholder={t("passwordPlaceholderHidden")}
+          visiblePlaceholder={t("passwordPlaceholderVisible")}
+          hint={t("passwordHint")}
+          error={passwordError}
+          autoComplete="new-password"
+          onChange={(event) => {
+            setPassword(event.target.value);
+            setFieldErrors((current) => ({
+              ...current,
+              password: undefined,
+            }));
+          }}
+        />
 
         <button
           type="submit"
@@ -210,6 +156,7 @@ export default function RegisterForm() {
           {isLoading ? t("submitting") : t("submit")}
         </button>
       </form>
+
       <div className="border-border mt-4 border-t pt-4 text-center">
         <p className="text-muted-foreground mb-3 text-sm">
           {t("resendDescription")}
