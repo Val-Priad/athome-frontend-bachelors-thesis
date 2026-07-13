@@ -1,13 +1,14 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
-import { verifyEmail } from "../api";
-import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { ApiError } from "@/shared/api/errors";
+
+import { verifyEmail } from "../api";
 
 type VerificationStatus = "loading" | "success" | "error";
 

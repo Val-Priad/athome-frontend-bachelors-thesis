@@ -67,12 +67,15 @@
     }
   },
   "HomePage": {
-    "title": "Привіт, світе"
+    "title": "Привіт, світе",
+    "logout": "Вийти",
+    "loggingOut": "Вихід...",
+    "logoutFailed": "Не вдалося вийти. Спробуйте ще раз."
   },
   "Validation": {
     "errors": {
       "default": "{message}",
-      "missing": "Поле «{field}» є обов’язковим.",
+      "missing": "Поле «{field}» є обов'язковим.",
       "string_too_long": "Поле «{field}» має містити не більше {max_length} символів.",
       "string_too_short": "Поле «{field}» має містити щонайменше {min_length} символів.",
       "value_error": "{message}"

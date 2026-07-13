@@ -1,6 +1,5 @@
 "use client";
 
-import type { CurrentUser } from "@/entities/user/schema";
 import {
   createContext,
   type ReactNode,
@@ -10,13 +9,16 @@ import {
   useState,
 } from "react";
 
-import { getCurrentUser } from "../api";
+import type { CurrentUser } from "@/entities/user/schema";
+
+import { getCurrentUser, logoutUser } from "../api";
 
 type SessionContextValue = {
   user: CurrentUser | null;
   isLoading: boolean;
   isAuthenticated: boolean;
   refreshUser: () => Promise<void>;
+  logout: () => Promise<void>;
 };
 
 type SessionProviderProps = Readonly<{
@@ -46,14 +48,20 @@ export function SessionProvider({
     }
   }, []);
 
+  const logout = useCallback(async () => {
+    await logoutUser();
+    setUser(null);
+  }, []);
+
   const value = useMemo<SessionContextValue>(
     () => ({
       user,
       isLoading,
       isAuthenticated: user !== null,
       refreshUser,
+      logout,
     }),
-    [user, isLoading, refreshUser],
+    [user, isLoading, refreshUser, logout],
   );
 
   return (

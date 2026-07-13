@@ -1,3 +1,4 @@
+import { apiFetch } from "@/shared/api/client";
 import { handleApiResponse } from "@/shared/api/response";
 import { apiMessageResponseSchema } from "@/shared/api/schemas";
 
@@ -11,7 +12,7 @@ export type ForgotPasswordPayload = {
 };
 
 export async function requestPasswordReset(payload: ForgotPasswordPayload) {
-  const response = await fetch("/api/auth/reset-password", {
+  const response = await apiFetch("/api/auth/reset-password", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -23,7 +24,7 @@ export async function requestPasswordReset(payload: ForgotPasswordPayload) {
 }
 
 export async function resetPassword(payload: ResetPasswordPayload) {
-  const response = await fetch("/api/auth/verify-new-password", {
+  const response = await apiFetch("/api/auth/verify-new-password", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

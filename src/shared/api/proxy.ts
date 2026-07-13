@@ -14,6 +14,8 @@ const FORWARDED_RESPONSE_HEADERS = [
   "retry-after", // Tells the client when to retry after rate limiting.
 ] as const;
 
+const CSRF_PROTECTED_METHODS = new Set(["POST", "PUT", "PATCH", "DELETE"]);
+
 function copyResponseHeaders(fromResponse: Response, toHeaders: Headers): void {
   for (const headerName of FORWARDED_RESPONSE_HEADERS) {
     const value = fromResponse.headers.get(headerName);
@@ -53,12 +55,21 @@ export async function proxyBackendRequest(
 
     const backendRequestHeaders = new Headers(headers);
 
-    if (forwardRequestCookies) {
-      const cookie = request.headers.get("cookie");
+    const cookie = request.headers.get("cookie");
 
-      if (cookie) {
-        backendRequestHeaders.set("cookie", cookie);
-      }
+    if (forwardRequestCookies && cookie) {
+      backendRequestHeaders.set("cookie", cookie);
+    }
+
+    const method = (init.method ?? request.method).toUpperCase();
+    const incomingCsrfToken = request.headers.get("X-CSRF-TOKEN");
+
+    if (
+      CSRF_PROTECTED_METHODS.has(method) &&
+      incomingCsrfToken &&
+      !backendRequestHeaders.has("X-CSRF-TOKEN")
+    ) {
+      backendRequestHeaders.set("X-CSRF-TOKEN", incomingCsrfToken);
     }
 
     const backendResponse = await fetch(backendUrl, {

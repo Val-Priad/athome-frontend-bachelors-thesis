@@ -1,3 +1,4 @@
+import { apiFetch } from "@/shared/api/client";
 import { handleApiResponse } from "@/shared/api/response";
 import { apiMessageResponseSchema } from "@/shared/api/schemas";
 
@@ -7,7 +8,7 @@ export type LogInPayload = {
 };
 
 export async function logInUser(payload: LogInPayload) {
-  const response = await fetch("/api/auth/login", {
+  const response = await apiFetch("/api/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

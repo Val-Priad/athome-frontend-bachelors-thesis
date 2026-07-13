@@ -2,10 +2,10 @@ import "server-only";
 
 import { cookies } from "next/headers";
 
-import { currentUserSchema, type CurrentUser } from "@/entities/user/schema";
+import { type CurrentUser, currentUserSchema } from "@/entities/user/schema";
+import { getBackendUrl } from "@/shared/api/getBackendUrl";
 import { handleApiResponse } from "@/shared/api/response";
 import { apiDataResponseSchema } from "@/shared/api/schemas";
-import { getBackendUrl } from "@/shared/api/getBackendUrl";
 
 const currentUserResponseSchema = apiDataResponseSchema(currentUserSchema);
 

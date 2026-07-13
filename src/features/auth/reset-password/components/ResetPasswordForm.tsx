@@ -14,7 +14,7 @@ import { type FieldErrors, getFirstFieldError } from "@/shared/api/validation";
 import { formatValidationError } from "@/shared/api/validationI18n";
 
 import PasswordField from "../../shared/components/PasswordField";
-import { type ResetPasswordPayload, resetPassword } from "../api";
+import { resetPassword, type ResetPasswordPayload } from "../api";
 
 type ResetPasswordField = keyof ResetPasswordPayload;
 

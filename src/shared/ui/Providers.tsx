@@ -1,7 +1,8 @@
-import type { CurrentUser } from "@/entities/user/schema";
-import { SessionProvider } from "@/features/auth/session/model/SessionProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { Toaster } from "react-hot-toast";
+
+import type { CurrentUser } from "@/entities/user/schema";
+import { SessionProvider } from "@/features/auth/session/model/SessionProvider";
 
 type ProvidersProps = Readonly<{
   children: React.ReactNode;

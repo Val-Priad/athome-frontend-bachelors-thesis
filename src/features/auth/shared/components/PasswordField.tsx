@@ -1,4 +1,4 @@
-import { useState, type ChangeEventHandler } from "react";
+import { type ChangeEventHandler, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 type PasswordFieldProps = Readonly<{

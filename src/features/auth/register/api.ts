@@ -1,3 +1,4 @@
+import { apiFetch } from "@/shared/api/client";
 import { handleApiResponse } from "@/shared/api/response";
 import { apiMessageResponseSchema } from "@/shared/api/schemas";
 
@@ -11,7 +12,7 @@ export type ResendVerificationPayload = {
 };
 
 export async function registerUser(payload: RegisterPayload) {
-  const response = await fetch("/api/auth/register", {
+  const response = await apiFetch("/api/auth/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +26,7 @@ export async function registerUser(payload: RegisterPayload) {
 export async function resendVerificationEmail(
   payload: ResendVerificationPayload,
 ) {
-  const response = await fetch("/api/auth/resend-verification-email", {
+  const response = await apiFetch("/api/auth/resend-verification-email", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
