@@ -67,10 +67,20 @@
     }
   },
   "HomePage": {
-    "title": "Hello world",
+    "eyebrow": "Real estate made simpler",
+    "title": "Find your place to call home",
+    "description": "Explore properties for sale and rent, connect with agents, and discover the right home for you.",
+    "heroImageAlt": "Modern residential home",
+    "browseEstates": "Browse properties",
+    "createListing": "Create listing",
+    "login": "Log in",
+    "register": "Register",
+    "signedInAs": "Signed in as",
     "logout": "Log out",
     "loggingOut": "Logging out...",
-    "logoutFailed": "Could not log out. Please try again."
+    "logoutFailed": "Could not log out.",
+    "featuredActionLabel": "Start exploring",
+    "featuredActionTitle": "Discover available properties"
   },
   "Validation": {
     "errors": {

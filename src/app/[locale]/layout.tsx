@@ -30,7 +30,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={inter.variable}>
-      <body className="bg-background text-foreground">
+      <body className="bg-background text-foreground min-h-svh">
         <Providers initialUser={initialUser}>{children}</Providers>
       </body>
     </html>
