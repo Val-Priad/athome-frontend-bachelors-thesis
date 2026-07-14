@@ -82,6 +82,12 @@
     "featuredActionLabel": "Start exploring",
     "featuredActionTitle": "Discover available properties"
   },
+  "Header": {
+    "browseEstates": "Browse properties",
+    "home": "AtHome home page",
+    "login": "Log in",
+    "selectLanguage": "Select language"
+  },
   "Validation": {
     "errors": {
       "default": "{message}",

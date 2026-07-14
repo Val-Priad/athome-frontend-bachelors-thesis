@@ -36,4 +36,6 @@
 
   --color-info: hsl(214, 100%, 50%);
   --color-info-muted: hsl(214, 100%, 45%);
+
+  --breakpoint-xs: 22.5rem;
 }

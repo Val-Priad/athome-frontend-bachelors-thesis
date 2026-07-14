@@ -82,6 +82,12 @@
     "featuredActionLabel": "Почніть пошук",
     "featuredActionTitle": "Переглянути доступну нерухомість"
   },
+  "Header": {
+    "browseEstates": "Переглянути нерухомість",
+    "home": "Головна сторінка AtHome",
+    "login": "Увійти",
+    "selectLanguage": "Вибрати мову"
+  },
   "Validation": {
     "errors": {
       "default": "{message}",
