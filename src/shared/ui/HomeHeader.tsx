@@ -43,10 +43,7 @@ export function HomeHeader() {
           </>
         ) : (
           <>
-            <Link
-              href="/login"
-              className="primary-btn xs:px-6 flex h-11 items-center px-4"
-            >
+            <Link href="/login" className="primary-btn xs:px-6 h-11 px-4">
               {t("login")}
             </Link>
 

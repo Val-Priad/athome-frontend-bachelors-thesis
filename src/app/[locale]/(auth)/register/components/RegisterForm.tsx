@@ -151,7 +151,7 @@ export default function RegisterForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="primary-btn w-full px-3 py-2 disabled:cursor-not-allowed disabled:opacity-70"
+          className="primary-btn w-full px-3 py-2"
         >
           {isLoading ? t("submitting") : t("submit")}
         </button>

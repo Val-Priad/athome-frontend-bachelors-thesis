@@ -36,17 +36,11 @@ export function AppHeader() {
 
         <div className="flex items-center gap-2">
           {isAuthenticated ? (
-            <Link
-              href="/estates"
-              className="secondary-btn flex h-11 items-center px-4"
-            >
+            <Link href="/estates" className="secondary-btn h-11 px-4">
               {t("browseEstates")}
             </Link>
           ) : (
-            <Link
-              href="/login"
-              className="primary-btn flex h-11 items-center px-4 sm:px-6"
-            >
+            <Link href="/login" className="primary-btn h-11 px-4 sm:px-6">
               {t("login")}
             </Link>
           )}

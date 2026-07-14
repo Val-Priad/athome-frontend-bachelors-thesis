@@ -75,10 +75,7 @@ export default function VerifyEmailPageContent() {
 
       <p className="text-muted-foreground mb-6 text-sm">{message}</p>
 
-      <Link
-        href={buttonHref}
-        className="primary-btn inline-flex w-full justify-center px-3 py-2"
-      >
+      <Link href={buttonHref} className="primary-btn w-full px-3 py-2">
         {buttonText}
       </Link>
     </div>

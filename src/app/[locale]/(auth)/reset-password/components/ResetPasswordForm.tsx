@@ -79,10 +79,7 @@ export default function ResetPasswordForm() {
       <div className="space-y-4 text-center">
         <p className="text-danger text-sm">{t("missingToken")}</p>
 
-        <Link
-          href="/login"
-          className="primary-btn inline-flex w-full justify-center px-3 py-2"
-        >
+        <Link href="/login" className="primary-btn w-full px-3 py-2">
           {t("requestNewLink")}
         </Link>
       </div>
@@ -113,7 +110,7 @@ export default function ResetPasswordForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="primary-btn w-full px-3 py-2 disabled:cursor-not-allowed disabled:opacity-70"
+        className="primary-btn w-full px-3 py-2"
       >
         {isLoading ? t("submitting") : t("submit")}
       </button>

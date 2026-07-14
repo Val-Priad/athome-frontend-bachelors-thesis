@@ -29,7 +29,7 @@ export function HomeHeroContent() {
           </Link>
           <Link
             href="/estates"
-            className="bg-primary text-primary-foreground hover:bg-primary-muted xs:px-6 rounded-md px-3 py-2 text-sm font-medium transition 2xl:px-6"
+            className="primary-btn xs:px-6 px-3 py-2 2xl:px-6"
           >
             {t("browseEstates")}
           </Link>
