@@ -73,7 +73,12 @@
     "browseEstates": "Переглянути нерухомість",
     "home": "Головна сторінка AtHome",
     "login": "Увійти",
-    "selectLanguage": "Вибрати мову"
+    "loggingOut": "Вихід...",
+    "logout": "Вийти",
+    "logoutError": "Не вдалося вийти.",
+    "me": "Мій профіль",
+    "selectLanguage": "Вибрати мову",
+    "userMenu": "Відкрити меню користувача"
   },
   "HomePage": {
     "browseEstates": "Переглянути нерухомість",

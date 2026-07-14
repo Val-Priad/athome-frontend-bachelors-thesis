@@ -5,10 +5,12 @@ import { HomeHeroContent } from "./HomeHeroContent";
 
 export default function HomePageContent() {
   return (
-    <main className="relative flex min-h-svh items-end overflow-hidden bg-neutral-900 text-white">
+    <main className="grid h-svh grid-cols-1 grid-rows-[minmax(0,1fr)] overflow-hidden bg-neutral-900 text-white">
       <HomeHeroBackground />
-      <HomeHeader />
-      <HomeHeroContent />
+      <div className="col-start-1 row-start-1 flex min-h-0 flex-col">
+        <HomeHeader />
+        <HomeHeroContent />
+      </div>
     </main>
   );
 }

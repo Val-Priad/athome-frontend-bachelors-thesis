@@ -6,7 +6,7 @@ export function HomeHeroContent() {
   const t = useTranslations("HomePage");
 
   return (
-    <section className="xs:pb-10 relative z-10 w-full px-5 pt-33 pb-5 sm:px-10 sm:pb-15 2xl:px-15 2xl:pb-20">
+    <section className="xs:pb-10 flex min-h-0 flex-1 flex-col justify-end px-5 pb-5 sm:px-10 sm:pb-15 2xl:px-15 2xl:pb-20">
       <div className="max-w-3xl">
         <p className="mb-4 text-xs font-medium tracking-[0.2em] text-white/80 uppercase">
           {t("eyebrow")}

@@ -8,6 +8,7 @@ import type { Locale } from "@/i18n/routing";
 
 import { LanguageSelect } from "./LanguageSelect";
 import { Logo } from "./Logo";
+import UserIcon from "./UserIcon";
 
 export function HomeHeader() {
   const locale = useLocale();
@@ -24,19 +25,22 @@ export function HomeHeader() {
   }
 
   return (
-    <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between px-4 pt-5 sm:pr-8">
+    <header className="flex shrink-0 items-center justify-between px-4 pt-8 sm:pr-8 2xl:pr-16">
       <Link href="/" aria-label={t("home")} className="block px-4">
         <Logo className="xs:h-20 h-15 w-auto sm:h-23 2xl:h-35" />
       </Link>
 
       <div className="flex items-center gap-2">
         {isAuthenticated ? (
-          <Link
-            href="/estates"
-            className="flex h-11 items-center rounded-md border border-white/20 bg-black/80 px-4 text-sm font-medium text-white backdrop-blur transition hover:bg-black"
-          >
-            {t("browseEstates")}
-          </Link>
+          <>
+            <Link
+              href="/estates"
+              className="flex h-11 items-center rounded-md border border-white/20 bg-black/80 px-4 text-sm font-medium text-white backdrop-blur transition hover:bg-black"
+            >
+              {t("browseEstates")}
+            </Link>
+            <UserIcon />
+          </>
         ) : (
           <>
             <Link

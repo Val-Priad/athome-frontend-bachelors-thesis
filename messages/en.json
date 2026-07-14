@@ -73,7 +73,12 @@
     "browseEstates": "Browse properties",
     "home": "AtHome home page",
     "login": "Log in",
-    "selectLanguage": "Select language"
+    "loggingOut": "Logging out...",
+    "logout": "Log out",
+    "logoutError": "Could not log out.",
+    "me": "My profile",
+    "selectLanguage": "Select language",
+    "userMenu": "Open user menu"
   },
   "HomePage": {
     "browseEstates": "Browse properties",
