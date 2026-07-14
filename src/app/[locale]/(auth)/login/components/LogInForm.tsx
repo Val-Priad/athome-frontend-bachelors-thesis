@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { type SyntheticEvent, useState } from "react";
 import toast from "react-hot-toast";
 
+import { useSession } from "@/auth/SessionProvider";
 import { useRouter } from "@/i18n/navigation";
 import {
   getApiErrorMessage,
@@ -12,11 +13,10 @@ import {
 import { type FieldErrors, getFirstFieldError } from "@/shared/api/validation";
 import { formatValidationError } from "@/shared/api/validationI18n";
 
-import { requestPasswordReset } from "../../reset-password/api";
-import { useSession } from "../../session/model/SessionProvider";
-import EmailField from "../../shared/components/EmailField";
-import PasswordField from "../../shared/components/PasswordField";
 import { type LogInPayload, logInUser } from "../api";
+import EmailField from "../../components/EmailField";
+import PasswordField from "../../components/PasswordField";
+import { requestPasswordReset } from "../../reset-password/api";
 
 type LogInField = keyof LogInPayload;
 

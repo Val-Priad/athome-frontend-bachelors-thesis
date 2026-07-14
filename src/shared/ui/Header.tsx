@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import { useSession } from "@/features/auth/session/model/SessionProvider";
+import { useSession } from "@/auth/SessionProvider";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 
 import { LanguageSelect } from "./LanguageSelect";

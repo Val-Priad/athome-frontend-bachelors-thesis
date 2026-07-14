@@ -70,19 +70,17 @@ export default function VerifyEmailPageContent() {
   const buttonText = status === "success" ? t("goToLogin") : t("goToRegister");
 
   return (
-    <main className="bg-background flex min-h-screen items-center justify-center px-4">
-      <section className="border-border bg-card w-full max-w-md rounded-xl border p-6 text-center shadow-lg">
-        <h1 className="mb-3 text-2xl font-semibold">{t("title")}</h1>
+    <div className="text-center">
+      <h1 className="mb-3 text-2xl font-semibold">{t("title")}</h1>
 
-        <p className="text-muted-foreground mb-6 text-sm">{message}</p>
+      <p className="text-muted-foreground mb-6 text-sm">{message}</p>
 
-        <Link
-          href={buttonHref}
-          className="primary-btn inline-flex w-full justify-center px-3 py-2"
-        >
-          {buttonText}
-        </Link>
-      </section>
-    </main>
+      <Link
+        href={buttonHref}
+        className="primary-btn inline-flex w-full justify-center px-3 py-2"
+      >
+        {buttonText}
+      </Link>
+    </div>
   );
 }

@@ -11,13 +11,13 @@ import {
 import { type FieldErrors, getFirstFieldError } from "@/shared/api/validation";
 import { formatValidationError } from "@/shared/api/validationI18n";
 
-import EmailField from "../../shared/components/EmailField";
-import PasswordField from "../../shared/components/PasswordField";
 import {
   type RegisterPayload,
   registerUser,
   resendVerificationEmail,
 } from "../api";
+import EmailField from "../../components/EmailField";
+import PasswordField from "../../components/PasswordField";
 
 type RegisterField = keyof RegisterPayload;
 

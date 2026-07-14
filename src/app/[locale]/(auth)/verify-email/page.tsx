@@ -1,4 +1,4 @@
-import VerifyEmailPageContent from "@/features/auth/verify-email/components/VerifyEmailPageContent";
+import VerifyEmailPageContent from "./components/VerifyEmailPageContent";
 
 export default function VerifyEmailPage() {
   return <VerifyEmailPageContent />;

@@ -13,8 +13,8 @@ import {
 import { type FieldErrors, getFirstFieldError } from "@/shared/api/validation";
 import { formatValidationError } from "@/shared/api/validationI18n";
 
-import PasswordField from "../../shared/components/PasswordField";
 import { resetPassword, type ResetPasswordPayload } from "../api";
+import PasswordField from "../../components/PasswordField";
 
 type ResetPasswordField = keyof ResetPasswordPayload;
 

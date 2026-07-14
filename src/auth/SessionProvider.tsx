@@ -11,7 +11,7 @@ import {
 
 import type { CurrentUser } from "@/entities/user/schema";
 
-import { getCurrentUser, logoutUser } from "../api";
+import { getCurrentUser, logoutUser } from "./api";
 
 type SessionContextValue = {
   user: CurrentUser | null;
