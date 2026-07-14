@@ -9,21 +9,21 @@ import {
   getValidationFieldErrors,
 } from "@/shared/api/errors";
 import { type FieldErrors, getFirstFieldError } from "@/shared/api/validation";
-import { formatValidationError } from "@/shared/api/validationI18n";
+import { useValidationErrorFormatter } from "@/shared/api/validationI18n";
 
+import EmailField from "../../components/EmailField";
+import PasswordField from "../../components/PasswordField";
 import {
   type RegisterPayload,
   registerUser,
   resendVerificationEmail,
 } from "../api";
-import EmailField from "../../components/EmailField";
-import PasswordField from "../../components/PasswordField";
 
 type RegisterField = keyof RegisterPayload;
 
 export default function RegisterForm() {
   const t = useTranslations("Auth.Register");
-  const tValidation = useTranslations("Validation");
+  const formatValidationError = useValidationErrorFormatter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,8 +57,7 @@ export default function RegisterForm() {
     } catch (error) {
       const nextFieldErrors = getValidationFieldErrors<RegisterField>(
         error,
-        (validationError) =>
-          formatValidationError(validationError, tValidation),
+        formatValidationError,
       );
 
       if (nextFieldErrors) {
@@ -99,8 +98,7 @@ export default function RegisterForm() {
     } catch (error) {
       const nextFieldErrors = getValidationFieldErrors<RegisterField>(
         error,
-        (validationError) =>
-          formatValidationError(validationError, tValidation),
+        formatValidationError,
       );
 
       if (nextFieldErrors) {
@@ -137,6 +135,8 @@ export default function RegisterForm() {
           hiddenPlaceholder={t("passwordPlaceholderHidden")}
           visiblePlaceholder={t("passwordPlaceholderVisible")}
           hint={t("passwordHint")}
+          hidePasswordLabel={t("hidePassword")}
+          showPasswordLabel={t("showPassword")}
           error={passwordError}
           autoComplete="new-password"
           onChange={(event) => {

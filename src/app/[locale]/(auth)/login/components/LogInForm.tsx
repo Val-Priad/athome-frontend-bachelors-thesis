@@ -11,18 +11,18 @@ import {
   getValidationFieldErrors,
 } from "@/shared/api/errors";
 import { type FieldErrors, getFirstFieldError } from "@/shared/api/validation";
-import { formatValidationError } from "@/shared/api/validationI18n";
+import { useValidationErrorFormatter } from "@/shared/api/validationI18n";
 
-import { type LogInPayload, logInUser } from "../api";
 import EmailField from "../../components/EmailField";
 import PasswordField from "../../components/PasswordField";
 import { requestPasswordReset } from "../../reset-password/api";
+import { type LogInPayload, logInUser } from "../api";
 
 type LogInField = keyof LogInPayload;
 
 export default function LogInForm() {
   const t = useTranslations("Auth.LogIn");
-  const tValidation = useTranslations("Validation");
+  const formatValidationError = useValidationErrorFormatter();
 
   const { refreshUser } = useSession();
   const router = useRouter();
@@ -61,8 +61,7 @@ export default function LogInForm() {
     } catch (error) {
       const nextFieldErrors = getValidationFieldErrors<LogInField>(
         error,
-        (validationError) =>
-          formatValidationError(validationError, tValidation),
+        formatValidationError,
       );
 
       if (nextFieldErrors) {
@@ -107,8 +106,7 @@ export default function LogInForm() {
     } catch (error) {
       const nextFieldErrors = getValidationFieldErrors<LogInField>(
         error,
-        (validationError) =>
-          formatValidationError(validationError, tValidation),
+        formatValidationError,
       );
 
       if (nextFieldErrors) {
@@ -144,6 +142,8 @@ export default function LogInForm() {
         hiddenPlaceholder={t("passwordPlaceholderHidden")}
         visiblePlaceholder={t("passwordPlaceholderVisible")}
         hint={t("passwordHint")}
+        hidePasswordLabel={t("hidePassword")}
+        showPasswordLabel={t("showPassword")}
         error={passwordError}
         autoComplete="current-password"
         onChange={(event) => {

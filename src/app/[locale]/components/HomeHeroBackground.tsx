@@ -1,15 +1,11 @@
 import Image from "next/image";
 
-interface HomeHeroBackgroundProps {
-  alt: string;
-}
-
-export function HomeHeroBackground({ alt }: HomeHeroBackgroundProps) {
+export function HomeHeroBackground() {
   return (
     <>
       <Image
         src="/images/home-hero-dark.webp"
-        alt={alt}
+        alt=""
         fill
         preload
         sizes="100vw"

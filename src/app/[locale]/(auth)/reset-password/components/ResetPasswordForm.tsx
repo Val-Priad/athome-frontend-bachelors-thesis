@@ -11,16 +11,16 @@ import {
   getValidationFieldErrors,
 } from "@/shared/api/errors";
 import { type FieldErrors, getFirstFieldError } from "@/shared/api/validation";
-import { formatValidationError } from "@/shared/api/validationI18n";
+import { useValidationErrorFormatter } from "@/shared/api/validationI18n";
 
-import { resetPassword, type ResetPasswordPayload } from "../api";
 import PasswordField from "../../components/PasswordField";
+import { resetPassword, type ResetPasswordPayload } from "../api";
 
 type ResetPasswordField = keyof ResetPasswordPayload;
 
 export default function ResetPasswordForm() {
   const t = useTranslations("Auth.ResetPassword");
-  const tValidation = useTranslations("Validation");
+  const formatValidationError = useValidationErrorFormatter();
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -63,8 +63,7 @@ export default function ResetPasswordForm() {
     } catch (error) {
       const nextFieldErrors = getValidationFieldErrors<ResetPasswordField>(
         error,
-        (validationError) =>
-          formatValidationError(validationError, tValidation),
+        formatValidationError,
       );
 
       if (nextFieldErrors) {
@@ -98,6 +97,8 @@ export default function ResetPasswordForm() {
         hiddenPlaceholder={t("passwordPlaceholderHidden")}
         visiblePlaceholder={t("passwordPlaceholderVisible")}
         hint={t("passwordHint")}
+        hidePasswordLabel={t("hidePassword")}
+        showPasswordLabel={t("showPassword")}
         error={passwordError}
         autoComplete="new-password"
         onChange={(event) => {

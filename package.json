@@ -30,7 +30,8 @@
     "lint": "tsc --noEmit && eslint . --cache --fix",
     "sort-messages": "./scripts/sort-messages.py",
     "spellcheck": "cspell .",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "i18n": "i18n-check --locales messages --source en --unused src --format next-intl"
   },
   "dependencies": {
     "next": "16.2.9",
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "@cspell/dict-uk-ua": "^4.0.6",
+    "@lingual/i18n-check": "^0.9.5",
     "@tailwindcss/postcss": "^4",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/node": "^20",

@@ -5,6 +5,7 @@
       "emailLabel": "Електронна пошта",
       "emailPlaceholder": "you@example.com",
       "emailRequiredForPasswordReset": "Введіть електронну пошту, щоб скинути пароль.",
+      "fallbackMessage": "Не вдалося увійти.",
       "forgotPassword": "Забули пароль?",
       "hidePassword": "Приховати пароль",
       "passwordHint": "Пароль має містити щонайменше 8 символів і не повинен містити пробілів.",
@@ -25,7 +26,7 @@
       "emailLabel": "Електронна пошта",
       "emailPlaceholder": "you@example.com",
       "emailRequiredForResend": "Спочатку введіть електронну пошту.",
-      "fallbackError": "Не вдалося створити акаунт.",
+      "fallbackMessage": "Не вдалося створити акаунт.",
       "hidePassword": "Приховати пароль",
       "passwordHint": "Пароль має містити щонайменше 8 символів і не повинен містити пробілів.",
       "passwordLabel": "Пароль",
@@ -45,12 +46,14 @@
     "ResetPassword": {
       "description": "Введіть новий пароль, який ви хочете використовувати для свого акаунта.",
       "fallbackMessage": "Не вдалося скинути пароль.",
+      "hidePassword": "Приховати пароль",
       "missingToken": "Токен для скидання пароля відсутній.",
       "passwordHint": "Пароль має містити щонайменше 8 символів.",
       "passwordLabel": "Новий пароль",
       "passwordPlaceholderHidden": "Введіть новий пароль",
       "passwordPlaceholderVisible": "Ваш новий пароль",
       "requestNewLink": "Запросіть нове посилання на сторінці входу",
+      "showPassword": "Показати пароль",
       "submit": "Скинути пароль",
       "submitting": "Скидання пароля...",
       "success": "Ваш пароль успішно змінено.",
@@ -66,27 +69,18 @@
       "title": "Підтвердження електронної пошти"
     }
   },
-  "HomePage": {
-    "eyebrow": "Нерухомість без зайвих складнощів",
-    "title": "Знайдіть місце, яке стане вашим домом",
-    "description": "Переглядайте нерухомість для продажу й оренди, зв'язуйтеся з агентами та знаходьте дім вашої мрії",
-    "heroImageAlt": "Сучасний житловий будинок",
-    "browseEstates": "Переглянути нерухомість",
-    "createListing": "Створити оголошення",
-    "login": "Увійти",
-    "register": "Зареєструватися",
-    "signedInAs": "Ви увійшли як",
-    "logout": "Вийти",
-    "loggingOut": "Вихід...",
-    "logoutFailed": "Не вдалося вийти з акаунта.",
-    "featuredActionLabel": "Почніть пошук",
-    "featuredActionTitle": "Переглянути доступну нерухомість"
-  },
   "Header": {
     "browseEstates": "Переглянути нерухомість",
     "home": "Головна сторінка AtHome",
     "login": "Увійти",
     "selectLanguage": "Вибрати мову"
+  },
+  "HomePage": {
+    "browseEstates": "Переглянути нерухомість",
+    "createListing": "Створити оголошення",
+    "description": "Переглядайте нерухомість для продажу й оренди, зв'язуйтеся з агентами та знаходьте дім вашої мрії",
+    "eyebrow": "Нерухомість без зайвих складнощів",
+    "title": "Знайдіть місце, яке стане вашим домом"
   },
   "Validation": {
     "errors": {

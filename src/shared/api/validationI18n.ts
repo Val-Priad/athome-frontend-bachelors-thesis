@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import type { ValidationFieldError } from "./schemas";
 
 type Translate = (
@@ -54,4 +56,32 @@ export function formatValidationError(
   };
 
   return safeTranslate(t, `errors.${error.code}`, values, error.message);
+}
+
+export function useValidationErrorFormatter() {
+  const t = useTranslations("Validation");
+
+  const translateKnownKey: Translate = (key, values) => {
+    switch (key) {
+      case "fields.email":
+        return t("fields.email");
+      case "fields.password":
+        return t("fields.password");
+      case "errors.missing":
+        return t("errors.missing", values);
+      case "errors.string_too_long":
+        return t("errors.string_too_long", values);
+      case "errors.string_too_short":
+        return t("errors.string_too_short", values);
+      case "errors.value_error":
+        return t("errors.value_error", values);
+      case "errors.default":
+        return t("errors.default", values);
+      default:
+        throw new Error(`Unknown validation translation key: ${key}`);
+    }
+  };
+
+  return (error: ValidationFieldError) =>
+    formatValidationError(error, translateKnownKey);
 }

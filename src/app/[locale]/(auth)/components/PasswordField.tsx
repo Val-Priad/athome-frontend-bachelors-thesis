@@ -7,6 +7,8 @@ type PasswordFieldProps = Readonly<{
   hiddenPlaceholder: string;
   visiblePlaceholder: string;
   hint: string;
+  hidePasswordLabel: string;
+  showPasswordLabel: string;
   error?: string;
   autoComplete: "current-password" | "new-password";
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -18,6 +20,8 @@ export default function PasswordField({
   hiddenPlaceholder,
   visiblePlaceholder,
   hint,
+  hidePasswordLabel,
+  showPasswordLabel,
   error,
   autoComplete,
   onChange,
@@ -47,6 +51,7 @@ export default function PasswordField({
 
         <button
           type="button"
+          aria-label={isHidden ? showPasswordLabel : hidePasswordLabel}
           onClick={() => setIsHidden((current) => !current)}
           className="text-muted-foreground hover:text-foreground"
         >

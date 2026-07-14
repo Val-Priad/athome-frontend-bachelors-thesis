@@ -5,6 +5,7 @@
       "emailLabel": "Email",
       "emailPlaceholder": "you@example.com",
       "emailRequiredForPasswordReset": "Provide an email to reset your password.",
+      "fallbackMessage": "Could not log in.",
       "forgotPassword": "Forgot password?",
       "hidePassword": "Hide password",
       "passwordHint": "Password must be at least 8 characters and must not contain spaces.",
@@ -25,7 +26,7 @@
       "emailLabel": "Email",
       "emailPlaceholder": "you@example.com",
       "emailRequiredForResend": "Enter your email first.",
-      "fallbackError": "Could not create account.",
+      "fallbackMessage": "Could not create account.",
       "hidePassword": "Hide password",
       "passwordHint": "Password must be at least 8 characters and must not contain spaces.",
       "passwordLabel": "Password",
@@ -45,12 +46,14 @@
     "ResetPassword": {
       "description": "Enter the new password you want to use for your account.",
       "fallbackMessage": "Could not reset your password.",
+      "hidePassword": "Hide password",
       "missingToken": "The password reset link is missing or invalid.",
       "passwordHint": "The password must contain at least 8 characters.",
       "passwordLabel": "New password",
       "passwordPlaceholderHidden": "Enter your new password",
       "passwordPlaceholderVisible": "Your new password",
       "requestNewLink": "Request a new reset link",
+      "showPassword": "Show password",
       "submit": "Reset password",
       "submitting": "Resetting password...",
       "success": "Your password has been changed successfully.",
@@ -66,27 +69,18 @@
       "title": "Email verification"
     }
   },
-  "HomePage": {
-    "eyebrow": "Real estate made simpler",
-    "title": "Find your place to call home",
-    "description": "Explore properties for sale and rent, connect with agents, and discover the right home for you.",
-    "heroImageAlt": "Modern residential home",
-    "browseEstates": "Browse properties",
-    "createListing": "Create listing",
-    "login": "Log in",
-    "register": "Register",
-    "signedInAs": "Signed in as",
-    "logout": "Log out",
-    "loggingOut": "Logging out...",
-    "logoutFailed": "Could not log out.",
-    "featuredActionLabel": "Start exploring",
-    "featuredActionTitle": "Discover available properties"
-  },
   "Header": {
     "browseEstates": "Browse properties",
     "home": "AtHome home page",
     "login": "Log in",
     "selectLanguage": "Select language"
+  },
+  "HomePage": {
+    "browseEstates": "Browse properties",
+    "createListing": "Create listing",
+    "description": "Explore properties for sale and rent, connect with agents, and discover the right home for you.",
+    "eyebrow": "Real estate made simpler",
+    "title": "Find your place to call home"
   },
   "Validation": {
     "errors": {
